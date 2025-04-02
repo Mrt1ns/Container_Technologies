@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-image:latest .
+          docker build -t vm2rt1ns/container_technologies:latest .
 
       - name: List Docker images
         run: |
@@ -32,16 +32,16 @@ jobs:
 
       - name: Inspect Docker image
         run: |
-          docker inspect my-image:latest
+          docker inspect vm2rt1ns/container_technologies:latest
 
       - name: Tag Docker image
         run: |
-          docker tag my-image:latest my-dockerhub-user/my-image:latest
+          docker tag vm2rt1ns/container_technologies:latest vm2rt1ns/container_technologies:latest
 
       - name: Push Docker image
         run: |
-          docker push my-dockerhub-user/my-image:latest
+          docker push vm2rt1ns/container_technologies:latest
 
       - name: Remove Docker image
         run: |
-          docker rmi my-image:latest
+          docker rmi vm2rt1ns/container_technologies:latest
