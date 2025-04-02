@@ -18,14 +18,6 @@ jobs:
         run: |
           echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Pull latest Docker image (if exists)
-        run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest || echo "Imagem não encontrada, continuando..."
-
-      - name: List Docker images
-        run: |
-          docker images
-
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest .
