@@ -18,10 +18,36 @@ jobs:
         run: |
           echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+      - name: Pull latest Docker image (if exists)
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest || echo "Imagem não encontrada, continuando..."
+
+      - name: List Docker images
+        run: |
+          docker images
+
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest .
 
+      - name: Inspect Docker image
+        run: |
+          docker inspect ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest
+
+      - name: Tag Docker image
+        run: |
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:stable
+
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:stable
+
+      - name: Remove local Docker image
+        run: |
+          docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest
+          docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:stable
+
+      - name: List Docker images after cleanup
+        run: |
+          docker images
