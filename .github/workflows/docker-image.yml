@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest -f Dockerfile .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest --file Dockerfile .
 
       - name: Inspect Docker image
         run: |
